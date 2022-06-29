@@ -31,6 +31,10 @@ public class Checking extends Account {
         this.monthlyMaintenanceFee = new Money(new BigDecimal(12));
     }
 
+    //hago este constructor para probar el test
+    public Checking(Money minimumBalance) {
+        this.minimumBalance = minimumBalance;
+    }
 
     public Checking(Money balance, String secretKey, AccountHolder primaryOwner, AccountHolder secondaryOwner, Date creationDate, Money minimumBalance, Money monthlyMaintenanceFee, StatusEnum statusEnum) {
         super(balance, secretKey, primaryOwner, secondaryOwner, creationDate);

@@ -1,5 +1,6 @@
 package com.ironhack.projectoRocioArellano.model.users;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ironhack.projectoRocioArellano.model.Address;
 import com.ironhack.projectoRocioArellano.model.accounts.Account;
 
@@ -19,9 +20,11 @@ public class AccountHolder extends User {
     private Integer mailingAddress; //opcional
 
     @OneToMany(mappedBy = "primaryOwner")
+    @JsonIgnore
     private Set<Account> primaryAccounts;
 
     @OneToMany(mappedBy = "secondaryOwner")
+    @JsonIgnore
     private Set<Account> secondaryAccounts;
 
     public AccountHolder() {
