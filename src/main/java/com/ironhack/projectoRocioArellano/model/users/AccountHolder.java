@@ -1,5 +1,6 @@
-package com.ironhack.projectoRocioArellano.model;
+package com.ironhack.projectoRocioArellano.model.users;
 
+import com.ironhack.projectoRocioArellano.model.Address;
 import com.ironhack.projectoRocioArellano.model.accounts.Account;
 
 import javax.persistence.*;
@@ -7,13 +8,9 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-public class AccountHolder {
+@PrimaryKeyJoinColumn(name="id")
+public class AccountHolder extends User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    private String name;
     private Date dateOfBirth;
 
     @Embedded
@@ -27,38 +24,23 @@ public class AccountHolder {
     @OneToMany(mappedBy = "secondaryOwner")
     private Set<Account> secondaryAccounts;
 
-
     public AccountHolder() {
     }
 
-    public AccountHolder(String name, Date dateOfBirth, Address primaryAddress, int mailingAddress) {
-        this.name = name;
+    public AccountHolder(Date dateOfBirth, Address primaryAddress, Integer mailingAddress, Set<Account> primaryAccounts, Set<Account> secondaryAccounts) {
         this.dateOfBirth = dateOfBirth;
         this.primaryAddress = primaryAddress;
         this.mailingAddress = mailingAddress;
+        this.primaryAccounts = primaryAccounts;
+        this.secondaryAccounts = secondaryAccounts;
     }
 
-    public AccountHolder(String name, Date dateOfBirth, Address primaryAddress) {
-        this.name = name;
+    public AccountHolder(Date dateOfBirth, Address primaryAddress, Set<Account> primaryAccounts, Set<Account> secondaryAccounts) {
         this.dateOfBirth = dateOfBirth;
         this.primaryAddress = primaryAddress;
+        this.primaryAccounts = primaryAccounts;
+        this.secondaryAccounts = secondaryAccounts;
         this.mailingAddress = null;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Date getDateOfBirth() {
@@ -77,11 +59,31 @@ public class AccountHolder {
         this.primaryAddress = primaryAddress;
     }
 
-    public int getMailingAddress() {
+    public Integer getMailingAddress() {
         return mailingAddress;
     }
 
-    public void setMailingAddress(int mailingAddress) {
+    public void setMailingAddress(Integer mailingAddress) {
         this.mailingAddress = mailingAddress;
     }
+
+    public Set<Account> getPrimaryAccounts() {
+        return primaryAccounts;
+    }
+
+    public void setPrimaryAccounts(Set<Account> primaryAccounts) {
+        this.primaryAccounts = primaryAccounts;
+    }
+
+    public Set<Account> getSecondaryAccounts() {
+        return secondaryAccounts;
+    }
+
+    public void setSecondaryAccounts(Set<Account> secondaryAccounts) {
+        this.secondaryAccounts = secondaryAccounts;
+    }
 }
+
+
+
+

@@ -1,6 +1,6 @@
 package com.ironhack.projectoRocioArellano.model.accounts;
 
-import com.ironhack.projectoRocioArellano.model.AccountHolder;
+import com.ironhack.projectoRocioArellano.model.users.AccountHolder;
 import com.ironhack.projectoRocioArellano.model.Money;
 
 import javax.persistence.*;

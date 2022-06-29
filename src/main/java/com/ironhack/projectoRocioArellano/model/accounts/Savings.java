@@ -1,7 +1,7 @@
 package com.ironhack.projectoRocioArellano.model.accounts;
 
 import com.ironhack.projectoRocioArellano.enums.StatusEnum;
-import com.ironhack.projectoRocioArellano.model.AccountHolder;
+import com.ironhack.projectoRocioArellano.model.users.AccountHolder;
 import com.ironhack.projectoRocioArellano.model.Money;
 
 import javax.persistence.*;
@@ -24,6 +24,7 @@ public class Savings extends Account {
     private final Money minimumBalanceMin = new Money(new BigDecimal(100));
     private BigDecimal interestRate;
     private final BigDecimal interestRateMax= new BigDecimal(0.5);
+    @Enumerated(EnumType.STRING)
     private StatusEnum statusEnum;
 
 

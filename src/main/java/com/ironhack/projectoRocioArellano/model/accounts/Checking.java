@@ -1,7 +1,7 @@
 package com.ironhack.projectoRocioArellano.model.accounts;
 
 import com.ironhack.projectoRocioArellano.enums.StatusEnum;
-import com.ironhack.projectoRocioArellano.model.AccountHolder;
+import com.ironhack.projectoRocioArellano.model.users.AccountHolder;
 import com.ironhack.projectoRocioArellano.model.Money;
 
 import javax.persistence.*;
@@ -22,6 +22,8 @@ public class Checking extends Account {
             @AttributeOverride(name = "currency", column = @Column(name = "monthly_maintenance_fee_currency"))
     })
     private Money monthlyMaintenanceFee;
+
+    @Enumerated(EnumType.STRING)
     private StatusEnum statusEnum;
 
     public Checking() {
