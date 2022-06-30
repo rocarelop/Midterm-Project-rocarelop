@@ -4,6 +4,7 @@ import com.ironhack.projectoRocioArellano.controller.DTO.AccountHolderDTO;
 import com.ironhack.projectoRocioArellano.controller.interfaces.AccountHolderController;
 import com.ironhack.projectoRocioArellano.model.accounts.Account;
 import com.ironhack.projectoRocioArellano.repository.AccountHolderRepository;
+import com.ironhack.projectoRocioArellano.security.CustomUserDetails;
 import com.ironhack.projectoRocioArellano.service.interfaces.AccountHolderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,8 +22,8 @@ public class AccountHolderControllerImpl implements AccountHolderController {
     AccountHolderService accountHolderService;
    @GetMapping("/myAccounts")
    @ResponseStatus(HttpStatus.OK)
-    public Set<Account> findMyAccountsById(@AuthenticationPrincipal AccountHolderDTO accountHolderDTO) {
+    public Set<Account> findMyAccountsById(@AuthenticationPrincipal CustomUserDetails userDetails) {
 
-       return accountHolderService.findMyAccountById(accountHolderDTO.getId());
+       return accountHolderService.findMyAccountById(userDetails.getUser().getId());
     }
 }
