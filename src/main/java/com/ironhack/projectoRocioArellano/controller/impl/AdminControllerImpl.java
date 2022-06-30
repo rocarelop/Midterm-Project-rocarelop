@@ -2,8 +2,11 @@ package com.ironhack.projectoRocioArellano.controller.impl;
 
 import com.ironhack.projectoRocioArellano.controller.DTO.AccountBalanceDTO;
 import com.ironhack.projectoRocioArellano.controller.interfaces.AdminController;
+import com.ironhack.projectoRocioArellano.model.Money;
 import com.ironhack.projectoRocioArellano.model.accounts.Account;
 import com.ironhack.projectoRocioArellano.model.accounts.Checking;
+import com.ironhack.projectoRocioArellano.model.accounts.CreditCard;
+import com.ironhack.projectoRocioArellano.model.accounts.Savings;
 import com.ironhack.projectoRocioArellano.repository.AccountRepository;
 import com.ironhack.projectoRocioArellano.repository.AdminRepository;
 import com.ironhack.projectoRocioArellano.service.interfaces.AdminService;
@@ -37,14 +40,35 @@ public class AdminControllerImpl implements AdminController {
         return adminService.findAccountByID(id);
     }
 
-    //crear checking y si tiene menos de 24 años checkingstudent
+    //Traer cuenta por id y su balance
+    @GetMapping("/accounts/{id}/balance")
+    @ResponseStatus(HttpStatus.OK)
+    public Money getBalance(@PathVariable int id){
+        Account account = adminService.findAccountByID(id);
+        return account.getBalance();
+    }
+
+    //crear checking y si tiene menos de 24 años checkingstudent y, cada una con 1 o 2 titulares (lógica en service)
     @PostMapping("/accounts/checking")
     @ResponseStatus(HttpStatus.CREATED)
     public Account store(@RequestBody @Valid Checking checkingAccount){
         return adminService.createCheckingAccount(checkingAccount);
     }
+    //crear creditcard con 1 titular y 2 titulares (lógica en service)
+    @PostMapping("/accounts/creditcard")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Account store(@RequestBody @Valid CreditCard creditCardAccount){
+        return adminService.createCreditCardAccount(creditCardAccount);
+    }
 
+    //crear savings con 1 titular y 2 titulares (lógica en service)
+    @PostMapping("/accounts/savings")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Account store(@RequestBody @Valid Savings savingsAccount){
+        return adminService.createSavingsAccount(savingsAccount);
+    }
 
+    //modificacion de balance
     @PatchMapping("/accounts/{id}/balance")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateBalance(@PathVariable int id, @RequestBody @Valid AccountBalanceDTO accountBalanceDTO){

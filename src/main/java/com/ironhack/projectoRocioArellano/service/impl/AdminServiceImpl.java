@@ -2,9 +2,7 @@ package com.ironhack.projectoRocioArellano.service.impl;
 
 import com.ironhack.projectoRocioArellano.enums.StatusEnum;
 import com.ironhack.projectoRocioArellano.model.Money;
-import com.ironhack.projectoRocioArellano.model.accounts.Account;
-import com.ironhack.projectoRocioArellano.model.accounts.Checking;
-import com.ironhack.projectoRocioArellano.model.accounts.StudentChecking;
+import com.ironhack.projectoRocioArellano.model.accounts.*;
 import com.ironhack.projectoRocioArellano.model.users.AccountHolder;
 import com.ironhack.projectoRocioArellano.repository.AccountRepository;
 import com.ironhack.projectoRocioArellano.repository.AdminRepository;
@@ -13,11 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+
+import static com.ironhack.projectoRocioArellano.utils.Utils.convertToLocalDateViaInstant;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -41,10 +40,11 @@ public class AdminServiceImpl implements AdminService {
 
     public Account createCheckingAccount(Checking checkingAccount){
         Account account;
-        LocalDate dateOfBirth = LocalDate.from(checkingAccount.getPrimaryOwner().getDateOfBirth().toInstant());
-        Period edad = Period.between(dateOfBirth, LocalDate.now());
+        LocalDate now= LocalDate.now();
+        LocalDate dateOfBirth = convertToLocalDateViaInstant(checkingAccount.getPrimaryOwner().getDateOfBirth());
+        long years = ChronoUnit.YEARS.between(dateOfBirth, now);
 
-        if(edad.getYears() < 24){
+        if(years < 24){
             if(checkingAccount.getSecondaryOwner()==null){
                 account= new StudentChecking(checkingAccount.getBalance(), checkingAccount.getSecretKey(), checkingAccount.getPrimaryOwner(), checkingAccount.getCreationDate(), checkingAccount.getStatusEnum());
             }else{
@@ -58,6 +58,29 @@ public class AdminServiceImpl implements AdminService {
                 account= new Checking(checkingAccount.getBalance(), checkingAccount.getSecretKey(), checkingAccount.getPrimaryOwner(), checkingAccount.getSecondaryOwner(), checkingAccount.getCreationDate(), checkingAccount.getMinimumBalance(), checkingAccount.getMonthlyMaintenanceFee(),checkingAccount.getStatusEnum());
             }
         }
+        return accountRepository.save(account);
+    }
+
+
+    public Account createCreditCardAccount(CreditCard creditCardAccount) {
+        Account account;
+        if(creditCardAccount.getSecondaryOwner()==null){
+            account= new CreditCard(creditCardAccount.getBalance(), creditCardAccount.getSecretKey(), creditCardAccount.getPrimaryOwner(), creditCardAccount.getCreationDate(), creditCardAccount.getCreditLimit(), creditCardAccount.getInterestRate());
+        }else{
+            account= new CreditCard(creditCardAccount.getBalance(), creditCardAccount.getSecretKey(), creditCardAccount.getPrimaryOwner(),creditCardAccount.getSecondaryOwner(), creditCardAccount.getCreationDate(), creditCardAccount.getCreditLimit(), creditCardAccount.getInterestRate());
+        }
+
+        return accountRepository.save(account);
+    }
+
+    public Account createSavingsAccount(Savings savingsAccount) {
+        Account account;
+        if(savingsAccount.getSecondaryOwner()==null){
+            account= new Savings(savingsAccount.getBalance(), savingsAccount.getSecretKey(), savingsAccount.getPrimaryOwner(), savingsAccount.getCreationDate(), savingsAccount.getMinimumBalance(), savingsAccount.getInterestRate(), savingsAccount.getStatusEnum()) ;
+        }else{
+            account= new Savings(savingsAccount.getBalance(), savingsAccount.getSecretKey(), savingsAccount.getPrimaryOwner(),savingsAccount.getSecondaryOwner(), savingsAccount.getCreationDate(), savingsAccount.getMinimumBalance(), savingsAccount.getInterestRate(), savingsAccount.getStatusEnum());
+        }
+
         return accountRepository.save(account);
     }
 
