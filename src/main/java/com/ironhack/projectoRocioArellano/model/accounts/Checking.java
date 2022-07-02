@@ -31,10 +31,7 @@ public class Checking extends Account {
         this.monthlyMaintenanceFee = new Money(new BigDecimal(12));
     }
 
-    //hago este constructor para probar el test
-    public Checking(Money minimumBalance) {
-        this.minimumBalance = minimumBalance;
-    }
+
 
     public Checking(Money balance, String secretKey, AccountHolder primaryOwner, AccountHolder secondaryOwner, Date creationDate, Money minimumBalance, Money monthlyMaintenanceFee, StatusEnum statusEnum) {
         super(balance, secretKey, primaryOwner, secondaryOwner, creationDate);
@@ -72,5 +69,16 @@ public class Checking extends Account {
 
     public void setStatusEnum(StatusEnum statusEnum) {
         this.statusEnum = statusEnum;
+    }
+
+
+    public void setBalance(Money balance) {
+        if(balance.getAmount().compareTo(getMinimumBalance().getAmount()) !=1){
+            super.setBalance(new Money(getBalance().decreaseAmount(getPenaltyFee())));
+            System.out.println("We deduct 40 USD because your account has a balance less than the minimum balance required");
+        }else{
+            super.setBalance(balance);
+        }
+
     }
 }

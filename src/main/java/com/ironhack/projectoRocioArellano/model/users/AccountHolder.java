@@ -30,8 +30,7 @@ public class AccountHolder extends User {
     public AccountHolder() {
     }
 
-    public AccountHolder(String name, String username, String password, Set<Role> roles, Date dateOfBirth, Address primaryAddress, Integer mailingAddress, Set<Account> primaryAccounts, Set<Account> secondaryAccounts) {
-        super(name, username, password, roles);
+    public AccountHolder(Date dateOfBirth, Address primaryAddress, Integer mailingAddress, Set<Account> primaryAccounts, Set<Account> secondaryAccounts) {
         this.dateOfBirth = dateOfBirth;
         this.primaryAddress = primaryAddress;
         this.mailingAddress = mailingAddress;
@@ -39,12 +38,12 @@ public class AccountHolder extends User {
         this.secondaryAccounts = secondaryAccounts;
     }
 
-    public AccountHolder(String name, String username, String password, Set<Role> roles, Date dateOfBirth, Address primaryAddress, Integer mailingAddress, Set<Account> primaryAccounts) {
-        super(name, username, password, roles);
+    public AccountHolder(Date dateOfBirth, Address primaryAddress, Set<Account> primaryAccounts, Set<Account> secondaryAccounts) {
         this.dateOfBirth = dateOfBirth;
         this.primaryAddress = primaryAddress;
-        this.mailingAddress = mailingAddress;
         this.primaryAccounts = primaryAccounts;
+        this.secondaryAccounts = secondaryAccounts;
+        this.mailingAddress = null;
     }
 
     public Date getDateOfBirth() {

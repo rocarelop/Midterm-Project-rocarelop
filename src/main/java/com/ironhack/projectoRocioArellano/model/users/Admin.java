@@ -1,5 +1,7 @@
 package com.ironhack.projectoRocioArellano.model.users;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity

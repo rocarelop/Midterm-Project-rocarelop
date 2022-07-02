@@ -36,4 +36,6 @@ public class StudentChecking extends Account {
     public void setStatusEnum(StatusEnum statusEnum) {
         this.statusEnum = statusEnum;
     }
+
+
 }

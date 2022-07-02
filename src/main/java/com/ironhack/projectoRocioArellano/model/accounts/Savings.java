@@ -79,4 +79,14 @@ public class Savings extends Account {
     public void setStatusEnum(StatusEnum statusEnum) {
         this.statusEnum = statusEnum;
     }
+
+    public void setBalance(Money balance) {
+        if(balance.getAmount().compareTo(getMinimumBalance().getAmount()) !=1){
+            super.setBalance(new Money(getBalance().decreaseAmount(getPenaltyFee())));
+            System.out.println("We deduct 40 USD because your account has a balance less than the minimum balance required");
+        }else{
+            super.setBalance(balance);
+        }
+
+    }
 }

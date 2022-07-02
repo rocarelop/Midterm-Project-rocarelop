@@ -1,7 +1,10 @@
 package com.ironhack.projectoRocioArellano.model.accounts;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ironhack.projectoRocioArellano.model.users.AccountHolder;
 import com.ironhack.projectoRocioArellano.model.Money;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -68,9 +71,6 @@ public abstract class Account {
         return balance;
     }
 
-    public void setBalance(Money balance) {
-        this.balance = balance;
-    }
 
     public String getSecretKey() {
         return secretKey;
@@ -103,5 +103,22 @@ public abstract class Account {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public Money getPenaltyFee() {
+        return penaltyFee;
+    }
+
+    public void setBalance(Money balance){
+        BigDecimal zero= new BigDecimal(0);
+        if(balance == null){
+            this.balance = new Money(zero);
+        }else{
+            if(zero.compareTo(balance.getAmount())== 1){
+                throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Action unprocessable, balance can't be negative");
+            }else {
+                this.balance =balance;
+            }
+        }
     }
 }

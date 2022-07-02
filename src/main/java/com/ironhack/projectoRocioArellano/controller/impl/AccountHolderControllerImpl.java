@@ -1,6 +1,7 @@
 package com.ironhack.projectoRocioArellano.controller.impl;
 
 import com.ironhack.projectoRocioArellano.controller.DTO.AccountHolderDTO;
+import com.ironhack.projectoRocioArellano.controller.DTO.SendMoneyDTO;
 import com.ironhack.projectoRocioArellano.controller.interfaces.AccountHolderController;
 import com.ironhack.projectoRocioArellano.model.accounts.Account;
 import com.ironhack.projectoRocioArellano.repository.AccountHolderRepository;
@@ -9,10 +10,9 @@ import com.ironhack.projectoRocioArellano.service.interfaces.AccountHolderServic
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Set;
 
@@ -24,6 +24,15 @@ public class AccountHolderControllerImpl implements AccountHolderController {
    @ResponseStatus(HttpStatus.OK)
     public Set<Account> findMyAccountsById(@AuthenticationPrincipal CustomUserDetails userDetails) {
 
-       return accountHolderService.findMyAccountById(userDetails.getUser().getId());
+       return accountHolderService.findMyAccountsById(userDetails.getUser().getId());
     }
+
+   /* @PatchMapping("myAccounts/{id}/transfer")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void sendMoney(@PathVariable int id, @AuthenticationPrincipal CustomUserDetails userDetails,
+                          @RequestBody @Valid SendMoneyDTO sendMoneyDTO){
+       accountHolderService.sendMoney(id, userDetails.getUser().getId(), sendMoneyDTO);
+    }*/
+
+
 }

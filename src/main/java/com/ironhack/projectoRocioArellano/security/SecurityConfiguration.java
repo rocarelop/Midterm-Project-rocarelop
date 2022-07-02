@@ -21,6 +21,7 @@ public class SecurityConfiguration {
         http.csrf().disable();
         http.authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/accounts").authenticated()
+                .antMatchers(HttpMethod.GET, "/accounts/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/accounts/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PATCH, "/accounts/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/myAccounts").hasRole("ACCOUNTHOLDER")// AccountHolder
