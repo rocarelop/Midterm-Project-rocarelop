@@ -49,10 +49,6 @@ public class AdminControllerImpl implements AdminController {
         return account.getBalance();
     }
 
-    @Override
-    public void deleteAccount(int id) {
-
-    }
 
     //crear checking y si tiene menos de 24 años checkingstudent y, cada una con 1 o 2 titulares (lógica en service)
     @PostMapping("/accounts/checking")
@@ -84,7 +80,7 @@ public class AdminControllerImpl implements AdminController {
 
     @DeleteMapping("/accounts/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteAcount(@PathVariable int id){
+    public void deleteAccount(@PathVariable int id){
         adminService.deleteAccount(id);
     }
 }
