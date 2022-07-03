@@ -3,6 +3,7 @@ package com.ironhack.projectoRocioArellano.service.impl;
 import com.ironhack.projectoRocioArellano.controller.DTO.SendMoneyDTO;
 import com.ironhack.projectoRocioArellano.model.Money;
 //import com.ironhack.projectoRocioArellano.model.Transferencia;
+import com.ironhack.projectoRocioArellano.model.Transferencia;
 import com.ironhack.projectoRocioArellano.model.accounts.Account;
 import com.ironhack.projectoRocioArellano.model.users.AccountHolder;
 import com.ironhack.projectoRocioArellano.repository.AccountHolderRepository;
@@ -30,15 +31,15 @@ public class AccountHolderServiceImpl implements AccountHolderService {
     private TransferenciaRepository transferenciaRepository;
 
 
-    public Set<Account> findMyAccountsById(int id) {
+    public Set<Account> findAllMyAccounts(int id) {
         AccountHolder accountHolder = accountHolderRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
         List<Account> accountList = accountRepository.findByPrimaryOwner(accountHolder);
         Set<Account> accounts = new HashSet<>(accountList);
         return accounts;
     }
 
-    /*public void sendMoney(int id, int id1, SendMoneyDTO sendMoneyDTO) {
-        Account accountSender = accountHolderRepository.findById(sendMoneyDTO.getAccountSenderId());
+    public void sendMoney(int id, int id1, SendMoneyDTO sendMoneyDTO) {
+        Account accountSender = accountRepository.findById(sendMoneyDTO.getAccountSenderId()).get();
         String nameSender = accountHolderRepository.findById(id).get().getName();
         Account accountReceiver = accountRepository.findById(sendMoneyDTO.getAccountReceiverId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid account ID"));
 
@@ -69,6 +70,6 @@ public class AccountHolderServiceImpl implements AccountHolderService {
 
 
         }
-    }*/
+    }
 
 }

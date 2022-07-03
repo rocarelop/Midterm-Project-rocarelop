@@ -7,7 +7,7 @@ import java.util.Set;
 
 public interface AccountHolderService {
 
-    Set<Account> findMyAccountsById(int id);
+    Set<Account> findAllMyAccounts(int id);
 
-    //void sendMoney(int id, int id1, SendMoneyDTO sendMoneyDTO);
+    void sendMoney(int id, int id1, SendMoneyDTO sendMoneyDTO);
 }

@@ -1,5 +1,6 @@
 package com.ironhack.projectoRocioArellano.model.accounts;
 
+import com.ironhack.projectoRocioArellano.enums.StatusEnum;
 import com.ironhack.projectoRocioArellano.model.users.AccountHolder;
 import com.ironhack.projectoRocioArellano.model.Money;
 
@@ -26,7 +27,7 @@ public class CreditCard extends Account {
 
 
 
-    public CreditCard() {
+    public CreditCard(Money money, AccountHolder user1, Date date, StatusEnum active) {
         this.interestRate = new BigDecimal(0.2);
         this.creditLimit = new Money(new BigDecimal(100));
     }

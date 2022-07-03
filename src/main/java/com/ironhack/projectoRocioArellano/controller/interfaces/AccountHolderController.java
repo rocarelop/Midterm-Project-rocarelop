@@ -13,9 +13,9 @@ import java.util.List;
 import java.util.Set;
 
 public interface AccountHolderController {
-    Set<Account> findMyAccountsById(CustomUserDetails userDetails);
+    Set<Account> findAllMyAccounts(CustomUserDetails userDetails);
 
-    //void sendMoney(int id, CustomUserDetails userDetails,SendMoneyDTO sendMoneyDTO);
+    void sendMoney(int id, CustomUserDetails userDetails,SendMoneyDTO sendMoneyDTO);
 
 
 }

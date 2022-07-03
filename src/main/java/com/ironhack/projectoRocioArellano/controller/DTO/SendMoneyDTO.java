@@ -33,6 +33,13 @@ public class SendMoneyDTO {
         this.nameReceiver = nameReceiver;
     }
 
+    public SendMoneyDTO(String senderName, Money amountMoney, int accountReceiverId, String nameReceiver) {
+        this.senderName = senderName;
+        this.amountMoney = amountMoney;
+        this.accountReceiverId = accountReceiverId;
+        this.nameReceiver = nameReceiver;
+    }
+
     public int getAccountSenderId() {
         return accountSenderId;
     }

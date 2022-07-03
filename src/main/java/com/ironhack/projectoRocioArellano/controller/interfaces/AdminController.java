@@ -14,13 +14,15 @@ public interface AdminController {
 
     Account findAccountById(int id);
 
-    Account store(Checking checkingAccount);
+    Account createCheckingAccount(Checking checkingAccount);
 
-    Account store(CreditCard creditCardAccount);
+    Account createCreditCardAccount(CreditCard creditCardAccount);
 
-    Account store(Savings savingsAccount);
+    Account createSavingsAccount(Savings savingsAccount);
 
     void updateBalance(int id, AccountBalanceDTO accountBalanceDTO);
 
     Money getBalance(int id);
+
+    void deleteAccount(int id);
 }

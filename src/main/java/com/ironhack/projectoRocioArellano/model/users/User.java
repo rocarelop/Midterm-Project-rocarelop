@@ -25,11 +25,10 @@ public class User {
     public User() {
     }
 
-    public User(String name, String username, String password, Set<Role> roles) {
+    public User(String name, String username, String password) {
         this.name = name;
         this.username = username;
         this.password = password;
-        this.roles = roles;
     }
 
     public int getId() {

@@ -85,4 +85,9 @@ public class AdminServiceImpl implements AdminService {
     }
 
 
+    public void deleteAccount(int id){
+        Account account = accountRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found"));
+        accountRepository.delete(account);
+    }
+
 }

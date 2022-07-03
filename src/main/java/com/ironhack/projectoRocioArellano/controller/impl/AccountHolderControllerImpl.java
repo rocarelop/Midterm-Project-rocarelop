@@ -22,17 +22,17 @@ public class AccountHolderControllerImpl implements AccountHolderController {
     AccountHolderService accountHolderService;
    @GetMapping("/myAccounts")
    @ResponseStatus(HttpStatus.OK)
-    public Set<Account> findMyAccountsById(@AuthenticationPrincipal CustomUserDetails userDetails) {
+    public Set<Account> findAllMyAccounts(@AuthenticationPrincipal CustomUserDetails userDetails) {
 
-       return accountHolderService.findMyAccountsById(userDetails.getUser().getId());
+       return accountHolderService.findAllMyAccounts(userDetails.getUser().getId());
     }
 
-   /* @PatchMapping("myAccounts/{id}/transfer")
+   @PatchMapping("myAccounts/{id}/transfer")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void sendMoney(@PathVariable int id, @AuthenticationPrincipal CustomUserDetails userDetails,
                           @RequestBody @Valid SendMoneyDTO sendMoneyDTO){
        accountHolderService.sendMoney(id, userDetails.getUser().getId(), sendMoneyDTO);
-    }*/
+    }
 
 
 }

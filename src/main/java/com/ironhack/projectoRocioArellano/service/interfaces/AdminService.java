@@ -18,4 +18,6 @@ public interface AdminService {
     Account createCreditCardAccount(CreditCard creditCardAccount);
 
     Account createSavingsAccount(Savings savingsAccount);
+
+    void deleteAccount(int id);
 }

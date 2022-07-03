@@ -40,6 +40,7 @@ public class AdminControllerImpl implements AdminController {
         return adminService.findAccountByID(id);
     }
 
+
     //Traer cuenta por id y su balance
     @GetMapping("/accounts/{id}/balance")
     @ResponseStatus(HttpStatus.OK)
@@ -48,23 +49,28 @@ public class AdminControllerImpl implements AdminController {
         return account.getBalance();
     }
 
+    @Override
+    public void deleteAccount(int id) {
+
+    }
+
     //crear checking y si tiene menos de 24 años checkingstudent y, cada una con 1 o 2 titulares (lógica en service)
     @PostMapping("/accounts/checking")
     @ResponseStatus(HttpStatus.CREATED)
-    public Account store(@RequestBody @Valid Checking checkingAccount){
+    public Account createCheckingAccount(@RequestBody @Valid Checking checkingAccount){
         return adminService.createCheckingAccount(checkingAccount);
     }
     //crear creditcard con 1 titular y 2 titulares (lógica en service)
     @PostMapping("/accounts/creditcard")
     @ResponseStatus(HttpStatus.CREATED)
-    public Account store(@RequestBody @Valid CreditCard creditCardAccount){
+    public Account createCreditCardAccount(@RequestBody @Valid CreditCard creditCardAccount){
         return adminService.createCreditCardAccount(creditCardAccount);
     }
 
     //crear savings con 1 titular y 2 titulares (lógica en service)
     @PostMapping("/accounts/savings")
     @ResponseStatus(HttpStatus.CREATED)
-    public Account store(@RequestBody @Valid Savings savingsAccount){
+    public Account createSavingsAccount(@RequestBody @Valid Savings savingsAccount){
         return adminService.createSavingsAccount(savingsAccount);
     }
 
@@ -74,5 +80,11 @@ public class AdminControllerImpl implements AdminController {
     public void updateBalance(@PathVariable int id, @RequestBody @Valid AccountBalanceDTO accountBalanceDTO){
     adminService.updateBalance(id, accountBalanceDTO.getBalance());
 
+    }
+
+    @DeleteMapping("/accounts/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteAcount(@PathVariable int id){
+        adminService.deleteAccount(id);
     }
 }

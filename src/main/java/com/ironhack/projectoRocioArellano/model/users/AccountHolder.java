@@ -30,20 +30,11 @@ public class AccountHolder extends User {
     public AccountHolder() {
     }
 
-    public AccountHolder(Date dateOfBirth, Address primaryAddress, Integer mailingAddress, Set<Account> primaryAccounts, Set<Account> secondaryAccounts) {
+    public AccountHolder(String name, String username, String password, Date dateOfBirth, Address primaryAddress, Integer mailingAddress) {
+        super(name, username, password);
         this.dateOfBirth = dateOfBirth;
         this.primaryAddress = primaryAddress;
         this.mailingAddress = mailingAddress;
-        this.primaryAccounts = primaryAccounts;
-        this.secondaryAccounts = secondaryAccounts;
-    }
-
-    public AccountHolder(Date dateOfBirth, Address primaryAddress, Set<Account> primaryAccounts, Set<Account> secondaryAccounts) {
-        this.dateOfBirth = dateOfBirth;
-        this.primaryAddress = primaryAddress;
-        this.primaryAccounts = primaryAccounts;
-        this.secondaryAccounts = secondaryAccounts;
-        this.mailingAddress = null;
     }
 
     public Date getDateOfBirth() {
