@@ -21,6 +21,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
@@ -38,7 +39,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 class AccountHolderControllerImplTest {
-
+@Autowired
+    PasswordEncoder passwordEncoder;
     @Autowired
     AdminRepository adminRepository;
     @Autowired
@@ -56,6 +58,7 @@ class AccountHolderControllerImplTest {
 
     private Role adminRole, accountholderRole;
 
+
     @BeforeEach
     void setUp() {
 
@@ -63,9 +66,9 @@ class AccountHolderControllerImplTest {
         address1=new Address("calle mallorca", 7, "sevilla", "spain");
         address2=  new Address("calle salamanca", 28, "sevilla", "spain");
 
-        user1 = new AccountHolder("accountholder", "accountholder", "hola", new Date(1994/12/12), address1, 41014);
-        user2 = new AccountHolder("accountholder", "accountholder", "hola", new Date(1996/12/9), address2, 41014);
-        admin1= new Admin("admin", "admin", "hola");
+        user1 = new AccountHolder("accountholder", "accountholder", passwordEncoder.encode("hola"), new Date(1994/12/12), address1, 41014);
+        user2 = new AccountHolder("accountholder", "accountholder", passwordEncoder.encode("hola"), new Date(1996/12/9), address2, 41014);
+        admin1= new Admin("admin", "admin", passwordEncoder.encode("hola"));
 
         accountHolderRepository.saveAll((List.of(user1,user2)));
         adminRepository.save(admin1);
