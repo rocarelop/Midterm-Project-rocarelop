@@ -23,6 +23,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -44,6 +45,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class AdminControllerImplTest {
     @Autowired
+    PasswordEncoder passwordEncoder;
+    @Autowired
     AdminRepository adminRepository;
     @Autowired
     AccountRepository accountRepository;
@@ -58,7 +61,7 @@ class AdminControllerImplTest {
     private Admin admin1, admin2;
      private Address address1, address2;
 
-     private Role adminRole, accountholderRole;
+     private Role adminRole, accountHolderRole;
 
 
 
@@ -69,15 +72,15 @@ class AdminControllerImplTest {
         address1=new Address("calle mallorca", 7, "sevilla", "spain");
         address2=  new Address("calle salamanca", 28, "sevilla", "spain");
 
-        user1 = new AccountHolder("accountholder", "accountholder", "hola", new Date(1994/12/12), address1, 41014);
-        user2 = new AccountHolder("accountholder", "accountholder", "hola", new Date(1996/12/9), address2, 41014);
-        admin1= new Admin("admin", "admin", "hola");
+        user1 = new AccountHolder("accountholder", "admin", passwordEncoder.encode("hola"), new Date(1994/12/12), address1, 41014);
+        user2 = new AccountHolder("accountholder", "admin", passwordEncoder.encode("hola"), new Date(1996/12/9), address2, 41014);
+        admin1= new Admin("admin", "admin", passwordEncoder.encode("hola"));
 
         accountHolderRepository.saveAll((List.of(user1,user2)));
         adminRepository.save(admin1);
 
         studentChecking1 =new StudentChecking(new Money(new BigDecimal(5000)), "dd", user1, new Date(2021/01/01), StatusEnum.ACTIVE);
-        studentChecking2 =new StudentChecking(new Money(new BigDecimal(3000)), "ee", user2, new Date(2020/03/12), StatusEnum.ACTIVE);
+        studentChecking2 =new StudentChecking(new Money(new BigDecimal(3000)), "ee", user1, new Date(2020/03/12), StatusEnum.ACTIVE);
 
         accountRepository.saveAll(List.of(studentChecking1, studentChecking2));
     }
@@ -85,6 +88,7 @@ class AdminControllerImplTest {
     @AfterEach
     void tearDown() {
         accountRepository.deleteAll();
+        accountHolderRepository.deleteAll();
     }
 
     @Test

@@ -56,7 +56,7 @@ class AccountHolderControllerImplTest {
     private Admin admin1, admin2;
     private Address address1, address2;
 
-    private Role adminRole, accountholderRole;
+    private Role adminRole, accountHolderRole;
 
 
     @BeforeEach
@@ -66,8 +66,8 @@ class AccountHolderControllerImplTest {
         address1=new Address("calle mallorca", 7, "sevilla", "spain");
         address2=  new Address("calle salamanca", 28, "sevilla", "spain");
 
-        user1 = new AccountHolder("accountholder", "accountholder", passwordEncoder.encode("hola"), new Date(1994/12/12), address1, 41014);
-        user2 = new AccountHolder("accountholder", "accountholder", passwordEncoder.encode("hola"), new Date(1996/12/9), address2, 41014);
+        user1 = new AccountHolder("user1", "accountHolder", passwordEncoder.encode("hola"), new Date(1994/12/12), address1, 41014);
+        user2 = new AccountHolder("user2", "accountHolder", passwordEncoder.encode("hola"), new Date(1996/12/9), address2, 41014);
         admin1= new Admin("admin", "admin", passwordEncoder.encode("hola"));
 
         accountHolderRepository.saveAll((List.of(user1,user2)));
@@ -80,12 +80,13 @@ class AccountHolderControllerImplTest {
     }
 
     @AfterEach
-    void tearDown() {accountRepository.deleteAll(); }
+    void tearDown() {accountRepository.deleteAll();
+    accountHolderRepository.deleteAll();}
 
     @Test
     void findAllMyAccounts() throws Exception {
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Authorization", "Basic YWNjb3VudGhvbGRlcjpob2xh");
+        httpHeaders.add("Authorization", "Basic YWNjb3VudEhvbGRlcjpob2xh");
 
         MvcResult mvcResult = mockMvc.perform(get("/myAccounts").headers(httpHeaders))
                 .andExpect(status().isOk())
@@ -100,7 +101,7 @@ class AccountHolderControllerImplTest {
     @Test
     void sendMoney() throws Exception{
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Authorization", "Basic YWNjb3VudGhvbGRlcjpob2xh");
+        httpHeaders.add("Authorization", "Basic YWNjb3VudEhvbGRlcjpob2xh");
 
         Money amountTransferencia = new Money(new BigDecimal(100));
         SendMoneyDTO sendMoneyDTO = new SendMoneyDTO(studentChecking2.getPrimaryOwner().getName(), amountTransferencia, studentChecking1.getId(), studentChecking1.getPrimaryOwner().getName());

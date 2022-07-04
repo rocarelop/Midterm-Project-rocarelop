@@ -23,9 +23,10 @@ public class SecurityConfiguration {
                 .antMatchers(HttpMethod.GET, "/accounts").authenticated()
                 .antMatchers(HttpMethod.GET, "/myAccounts").authenticated()
                 .antMatchers(HttpMethod.GET, "/accounts/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/myAccounts/**").hasRole("ACCOUNTHOLDER")
                 .antMatchers(HttpMethod.POST, "/accounts/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PATCH, "/accounts/**").hasRole("ADMIN")
-                .antMatchers(HttpMethod.GET, "/myAccounts/**").hasRole("ACCOUNTHOLDER")// AccountHolder
+                .antMatchers(HttpMethod.POST, "/myAccounts/**").hasRole("ACCOUNTHOLDER")
                 .anyRequest().permitAll();
         return http.build();
     }
