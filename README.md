@@ -22,6 +22,6 @@ También incluyo el diagrama de clases en el que me he basado para realizar el p
 ## Diagrama de clases
 
 <p align="center">
-    <img src =Midterm-Project-rocarelop/diagramaproyectoRocioArellano.png>
+    <img src =diagramaproyectoRocioArellano.png>
 </p>
 
